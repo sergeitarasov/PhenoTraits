@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1579258152457.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "F59AE044",
+    "lastKnownWriteTime" : 1583259160,
+    "last_content_update" : 1583259160460,
+    "path" : "~/Documents/My_papers/PhenoTraits_proj/Simulation_UnrepBurst.R",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "272,0",
+        "scrollLine" : "257",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 10,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

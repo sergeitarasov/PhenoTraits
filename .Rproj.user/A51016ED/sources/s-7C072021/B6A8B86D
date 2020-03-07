@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1578664093593.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "B6A8B86D",
+    "lastKnownWriteTime" : 1578795120,
+    "last_content_update" : 1578795120067,
+    "path" : "~/Documents/My_papers/PhenoTraits_proj/PhenoTraits/R/Likelihood_Sinba.R",
+    "project_path" : "R/Likelihood_Sinba.R",
+    "properties" : {
+        "cursorPosition" : "28,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

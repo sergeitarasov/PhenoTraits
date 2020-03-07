@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1578663966773.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "E3C51CA5",
+    "lastKnownWriteTime" : 1579636523,
+    "last_content_update" : 1579636523994,
+    "path" : "~/Documents/My_papers/PhenoTraits_proj/PhenoTraits/R/CreateRateMatrices.R",
+    "project_path" : "R/CreateRateMatrices.R",
+    "properties" : {
+        "cursorPosition" : "42,54",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

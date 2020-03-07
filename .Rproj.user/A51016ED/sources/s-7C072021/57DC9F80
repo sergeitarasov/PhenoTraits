@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1579548767694.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3744844026",
+    "id" : "57DC9F80",
+    "lastKnownWriteTime" : 1583405485,
+    "last_content_update" : 1583405485688,
+    "path" : "~/Documents/My_papers/PhenoTraits_proj/PhenoTraits/R/infer_iter_Sinba.R",
+    "project_path" : "R/infer_iter_Sinba.R",
+    "properties" : {
+        "cursorPosition" : "415,0",
+        "scrollLine" : "389",
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 12,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

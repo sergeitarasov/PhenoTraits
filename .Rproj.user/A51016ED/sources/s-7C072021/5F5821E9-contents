@@ -1,0 +1,152 @@
+# simulation
+
+# 1. simuate 100
+# 2. run inference for 100
+# 3. get pred distr
+# 4. clac KL smple and get mean
+
+
+Qcom <- mk_Qcom(rate1=c(1,1), rate2=c(1,1))
+
+Qsim <- mk_Qcom(rate1=c(.1,.1), rate2=c(.1,.1))
+#Qsim <- mk_Qcom(rate1=c(.1,.2), rate2=c(.3,.4))
+diag(Qsim) <- -rowSums(Qsim)
+Qsim
+
+p.root=c(1/4, 1/4, 1/4, 1/4)
+n.sim <- 10
+t <- c(1, 0.5)
+Nchar <- 100
+
+# 1 simulate
+sim.multi <- lapply(1:n.sim, function(xx) simulate_ExpLinLn(Q=Qsim, t=t, n.samples=Nchar, pi=c(1/4, 1/4, 1/4, 1/4)) )
+length(sim.multi)
+#expected_KL(sim.multi, Qcom, t=1, pi=p.root)
+
+# many models
+Q.list <- mk_QcomPartitions()
+#lapply(Q.list, function(x) x==Qcom) # 8
+#Q.list[[8]]
+#Q.list[[11]]
+
+
+#infer2branchTrees
+# kl.sim <- mclapply(
+#   Q.list, function(xx) expected_KL(sim.multi, Qcom=xx, Qsim=Qsim, t=t, pi=p.root),
+#   mc.cores = 1
+# )
+
+kl.sim <- mclapply(
+  Q.list, function(xx) infer2branchTrees(sim.multi, Qcom=xx, Qsim=Qsim, t=t, pi=p.root, add.TIC=F),
+  mc.cores = 5
+)
+
+
+kl.sim.Q <- lapply(kl.sim, function(x) x$Q)
+#kl.sim.Q[[1]]
+kl.sim <-lapply(kl.sim, function(x) {x$Q <- NULL; x})
+
+
+out <- melt(kl.sim)
+out <- cbind(out, dat.id=rep(1:n.sim, nrow(out)/n.sim))
+
+pars <- sapply(kl.sim, function(x) x$n.par) %>% t
+kl <- sapply(kl.sim, function(x) x$KL) %>% t
+kl.p <- sapply(kl.sim, function(x) x$KL_part) %>% t
+aic <- sapply(kl.sim, function(x) x$aic) %>% t
+kl.m <- apply(kl, 1, mean)
+bic <- sapply(kl.sim, function(x) x$bic) %>% t
+lic <- sapply(kl.sim, function(x) x$loglik) %>% t
+
+plot(kl.p[1,], lic[1,]/Nchar)
+
+plot(kl[,2], aic[,2])
+plot(kl.m, aic[,2])
+plot(log(kl.m), aic[,2])
+plot(kl.p[,2], aic[,2])
+plot(kl[,2], kl.p[,2])
+
+plot(bic[,2], aic[,2])
+plot(bic[,2], kl.m)
+
+di <- getPhyloCTMC_distr(Qsim, t)$distr
+K <- sum(di*log(di))
+K.hat <- lic[1,]/Nchar
+plot(K.hat, kl.p[1,])
+mean(lic[1,]/Nchar)
+hist(K.hat-K, breaks = 20)
+mean(K.hat-K) # approximates 1/Nchar
+mean(K.hat-0.0023-K)
+mean(K.hat-mean(K.hat))
+mean(kl.p[1,]-K)
+mean(kl.p[1,]-K.hat)
+mean(kl.p[3,]-(lic[3,]/Nchar))
+
+K.hat-(1/Nchar) # is -1/(2*Nchar)*aic[1,]
+2*(1-(Nchar*K.hat)) # is aic
+-2*Nchar*K # analytical AIC
+-2*Nchar*mean(kl.p[1,]) # empirical AIC using kl.p
+mean(aic[1,])
+
+
+plot(aic[1,], -2*Nchar*kl.p[1,])
+plot(aic[,1], 2*(pars[,1]-Nchar*kl.p[,1]))
+plot(aic[,4], -2*(Nchar*kl.p[,4]))
+
+4301.015
+hist(aic[1,], breaks = 20)
+hist(aic[2,], breaks = 20)
+hist(kl[1,], breaks = 20)
+hist(lic[15,]/Nchar, breaks = 20)
+hist(kl.p[1,], breaks = 20)
+mean(kl.p[1])
+
+melt(bic)
+
+apply(aic, 1, mean)
+best.aic <- apply(aic, 2, function(x) which(x==min(x)))
+delta.aic <- apply(aic, 2, function(x) x[1]-min(x) )
+(delta.aic[delta.aic>2]) %>% length
+max(delta.aic)
+which(delta.aic==max(delta.aic))
+zz <- apply(aic, 2, function(x) which(x[1]-x > 2) %>% length )
+zz[zz>0] %>% sum
+
+best.kl <- apply(kl, 2, function(x) which(x==min(x)))
+delta.aic <- apply(aic, 2, function(x) x[1]-min(x) )
+(delta.aic[delta.aic>2]) %>% length
+
+best.lic <- apply(lic, 2, function(x) which(x==max(x)))
+delta.aic <- apply(aic, 2, function(x) x[1]-min(x) )
+(delta.aic[delta.aic>2]) %>% length
+
+lic.n <- (-2*lic)+(2*pars)
+#plot(lic[,2], kl.m)
+plot(lic.n[,2], kl.m)
+plot(lic.n[,2], kl[,2])
+plot(aic[,2], kl[,2])
+
+aic.d <- lic.n
+aic.d <- cbind(kl[,2], aic.d)
+aic.d <-as.data.frame(aic.d)
+fit <- lm(kl.m ~ V3, data=aic.d)
+summary(fit)
+residuals(fit)
+
+0.0002443
+0.000149
+0.0001112
+
+#aic-lic.n
+best.lic.n <- apply(lic.n, 2, function(x) which(x==min(x)))
+delta.lic.n <- apply(lic.n, 2, function(x) x[1]-min(x) )
+(delta.lic.n[delta.lic.n>2]) %>% length
+
+
+best.bic <- apply(bic, 2, function(x) which(x==min(x)))
+delta.bic <- apply(bic, 2, function(x) x[1]-min(x) )
+which(delta.bic>2) %>% length()
+max(delta.bic)
+
+#----
+

@@ -1,0 +1,62 @@
+[
+    {
+        "definitions" : [
+            {
+                "column" : 11,
+                "file" : "/Users/taravser/Documents/My_papers/PhenoTraits_proj/PhenoTraits/src/Mat_Functions.cpp",
+                "kind" : 6,
+                "line" : 15,
+                "name" : "ExpMat_C(double, arma::mat)",
+                "parent_name" : "",
+                "usr" : "c:@F@ExpMat_C#d#$@N@arma@C@Mat>#d#"
+            },
+            {
+                "column" : 11,
+                "file" : "/Users/taravser/Documents/My_papers/PhenoTraits_proj/PhenoTraits/src/Mat_Functions.cpp",
+                "kind" : 6,
+                "line" : 24,
+                "name" : "vExpMat_C(NumericVector, arma::mat)",
+                "parent_name" : "",
+                "usr" : "c:@F@vExpMat_C#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#$@N@arma@C@Mat>#d#"
+            },
+            {
+                "column" : 11,
+                "file" : "/Users/taravser/Documents/My_papers/PhenoTraits_proj/PhenoTraits/src/Mat_Functions.cpp",
+                "kind" : 6,
+                "line" : 41,
+                "name" : "Exp_2Q_C(double, double, double, arma::mat, arma::mat)",
+                "parent_name" : "",
+                "usr" : "c:@F@Exp_2Q_C#d#d#d#$@N@arma@C@Mat>#d#S0_#"
+            },
+            {
+                "column" : 11,
+                "file" : "/Users/taravser/Documents/My_papers/PhenoTraits_proj/PhenoTraits/src/Mat_Functions.cpp",
+                "kind" : 6,
+                "line" : 49,
+                "name" : "vExp_2Q_t1_C(NumericVector, double, double, arma::mat, arma::mat)",
+                "parent_name" : "",
+                "usr" : "c:@F@vExp_2Q_t1_C#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#d#d#$@N@arma@C@Mat>#d#S1_#"
+            },
+            {
+                "column" : 11,
+                "file" : "/Users/taravser/Documents/My_papers/PhenoTraits_proj/PhenoTraits/src/Mat_Functions.cpp",
+                "kind" : 6,
+                "line" : 63,
+                "name" : "Exp_2Q_scen3_C(double, double, arma::mat, arma::mat)",
+                "parent_name" : "",
+                "usr" : "c:@F@Exp_2Q_scen3_C#d#d#$@N@arma@C@Mat>#d#S0_#"
+            },
+            {
+                "column" : 11,
+                "file" : "/Users/taravser/Documents/My_papers/PhenoTraits_proj/PhenoTraits/src/Mat_Functions.cpp",
+                "kind" : 6,
+                "line" : 71,
+                "name" : "vExp_2Q_scen3_C(NumericVector, double, arma::mat, arma::mat)",
+                "parent_name" : "",
+                "usr" : "c:@F@vExp_2Q_scen3_C#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#d#$@N@arma@C@Mat>#d#S1_#"
+            }
+        ],
+        "file" : "/Users/taravser/Documents/My_papers/PhenoTraits_proj/PhenoTraits/src/Mat_Functions.cpp",
+        "file_last_write" : 1578664841
+    }
+]

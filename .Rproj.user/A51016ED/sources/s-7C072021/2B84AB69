@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1578659204189.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "2B84AB69",
+    "lastKnownWriteTime" : 1579276578,
+    "last_content_update" : 1579276578244,
+    "path" : "~/Documents/My_papers/PhenoTraits_proj/PhenoTraits/R/Initialize.R",
+    "project_path" : "R/Initialize.R",
+    "properties" : {
+        "cursorPosition" : "15,40",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

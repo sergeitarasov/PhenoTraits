@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1579192680259.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2225270214",
+    "id" : "1DCE9EEC",
+    "lastKnownWriteTime" : 1579276639,
+    "last_content_update" : 1579276639617,
+    "path" : "~/Documents/My_papers/PhenoTraits_proj/PhenoTraits/R/sim_Phy.R",
+    "project_path" : "R/sim_Phy.R",
+    "properties" : {
+        "cursorPosition" : "39,55",
+        "scrollLine" : "0",
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 13,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

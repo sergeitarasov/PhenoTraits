@@ -1,0 +1,100 @@
+setwd("~/Documents/Char_coding/Dimitar_Web")
+#setwd("~/Users/admin/Documents/Projects/nsf_orbs/phase3/Dimitar_Web")
+library("dplyr")
+library("ape")
+source("Scripts_to_construct_SMMs/SMM_functions.R")
+
+
+
+AP <- read.csv('web_p.csv', stringsAsFactors = F)
+ST <- read.csv('web_a.csv', stringsAsFactors = F)
+AP[,2] %>% unique
+ST[,2] %>% unique
+
+chars <- tibble(spp=AP[,1], AP=AP[,2], ST=ST[,2])
+chars <-bind_cols(chars, Comb=paste(chars$AP, chars$ST))
+chars$Comb %>% unique()
+
+
+#Reading tree
+tree <- read.nexus('timetree2.nex')
+#tree<-read.tree('p3_2a.dated.tre')
+#tree<-read.tree('p3_2a.dated.tre')
+
+drop <- base::setdiff( tree$tip.label, chars$spp)
+tree <-drop.tip(tree, drop)
+
+#   ____________________________________________________________________________
+#   Simple SMM-ind                                                          ####
+
+# This Simple SMM-ind is equvalent to using inapplicable coding and running reconstruction
+# using the two chars separately. We assume that all rates are different, so there 4 rate cateories.
+
+# I use the same functions as in Supple Mat of my papper
+# initilize tail character (Web a/p)
+char.state<-c("a", "p")
+rate.param<-c(1, 2)
+TL<-init_char_matrix(char.state, rate.param, diag.as=0)
+diag(TL)<-rate.param*-1
+TL
+
+# initilize color character
+char.state<-c(1:13)
+rate.param<-c(3)
+COL<-init_char_matrix(char.state, rate.param, diag.as=0)
+diag(COL)<-rate.param*-1
+COL
+# amalgamating characters as independently evolving (SMM-ind)
+
+
+SMM.ind<-comb2matrices(TL, COL, controlling.state=NULL, name.sep="", diag.as="", non.rate.as=NA)
+# > SMM.ind
+#    a0 a1 p0 p1
+# a0 NA  3  1 NA
+# a1  4 NA NA  1
+# p0  2 NA NA  3
+# p1 NA  2  4 NA
+
+> SMM.ind
+   a0 a1 p0 p1
+a0 NA  3  1 NA
+a1  3 NA NA  1
+p0  2 NA NA  3
+p1 NA  2  3 NA
+
+# recode. the final character
+# will have only three states {a, p0, p1}, and the state (a) will consiste of the two hidden states a0 and a1
+
+#chars <-bind_cols(chars,
+chars <-bind_cols(chars,
+SMM.ind=recode(chars$Comb, "1 1"='p1', "1 2"='p2', "1 3"='p3', "1 4"='p4', "1 5"='p5', "1 6"='p6', "1 7"='p7', "1 8"='p8', "1 9"='p9', "1 10"='p10', "1 11"='p11', "1 12"='p12', "1 13"='p13', "0 ?"='a1&a2&a3&a4&a5&a6&a7&a8&a9&a10&a11&a12&a13'))
+
+##  ............................................................................
+##  SMM.ind 4 rates                                                         ####
+
+# reconstruct ancestral states using corHMM
+# WARNING: in this exmple I use literal state names (e.g., ab..), if it does not work use numbers instead
+require("corHMM")
+taxa=cbind(chars$spp, chars$SMM.ind)
+out.SMM.ind.4r.13 <- rayDISC(tree, taxa, rate.mat=SMM.ind, node.states="marginal", model="ARD", root.p="maddfitz")
+
+##  ............................................................................
+##  SMM.ind 4 rates  CHECKING RECODING                                                       ####
+
+# Same as previous but with different tokens for states to check if alpnanumeric states work correctly
+
+chars <-bind_cols(chars,
+                  SMM.ind.num=recode(chars$Comb, "1 0"='2', "1 1"='3', "0 ?"='0&1') )
+
+SMM.ind.num <- SMM.ind
+rownames(SMM.ind.num) <- colnames(SMM.ind.num) <-c(0:3)
+# reconstruct ancestral states using corHMM
+# WARNING: in this exmple I use literal state names (e.g., ab..), if it does not work use numbers instead
+require("corHMM")
+taxa.num=cbind(chars$spp, chars$SMM.ind.num)
+out.SMM.ind.4r.num <- rayDISC(tree, taxa.num, rate.mat=SMM.ind.num, node.states="marginal", model="ARD", root.p="maddfitz")
+# Everything is OK
+
+SMM.sw.4r <- comb2matrices(TL, COL, controlling.state=2, name.sep="", diag.as="", non.rate.as=NA)
+out.SMM.sw.4r.13 <- rayDISC(tree, taxa, rate.mat=SMM.sw.4r, node.states="marginal", model="ARD", root.p="maddfitz")
+

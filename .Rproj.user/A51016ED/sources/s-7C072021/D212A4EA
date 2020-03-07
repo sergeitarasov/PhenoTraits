@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1578664188410.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "D212A4EA",
+    "lastKnownWriteTime" : 1579284213,
+    "last_content_update" : 1579284213500,
+    "path" : "~/Documents/My_papers/PhenoTraits_proj/PhenoTraits/R/inferSinba.R",
+    "project_path" : "R/inferSinba.R",
+    "properties" : {
+        "cursorPosition" : "318,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
