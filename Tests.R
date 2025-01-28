@@ -1,8 +1,8 @@
 library("corHMM")
 library("phytools")
 
-setwd("~/Documents/Courses/Bergen_2019/PhyloCourse_Bergen_2019/PhyloCourse_Bergen-2019/R")
-source('write_nexus_RB.R')
+#setwd("~/Documents/Courses/Bergen_2019/PhyloCourse_Bergen_2019/PhyloCourse_Bergen-2019/R")
+#source('write_nexus_RB.R')
 
 #   ____________________________________________________________________________
 #   Simulate Tree and Traits                                               ####
@@ -33,13 +33,13 @@ Q.Asym[Q.Asym<=0] <- NA
 
 # Inference
 taxa <- cbind(hist$tip.label, hist$states)
-Recon_Q.Asim <- rayDISC(hist, taxa, rate.mat=Q.Asym, node.states="marginal",
+Recon_Q.Asim <- rayDISC(tree, taxa, rate.mat=Q.Asym, node.states="marginal",
                         model="ARD", root.p=c(1,0,0,0))
 
 # infered rate matrix
 Recon_Q.Asim
 class(Recon_Q.Asim)
-print.corhmm()
+
 
 #------ Mine
 
@@ -61,9 +61,13 @@ Pindv <- mk_Pindv(Qcom, p1=c(0.5,0,0.5,0), p2=c(0.5,0.5,0,0), p0=c(1,0,0,0))
 root.p <- rep(1/4,4)
 
 
+# outM <- runSinba(phy=scen$tree, data=scen$data,  root.p = rep(1/4,4), Qindv=Qindv, Pindv=Pindv, edge.pattern=scen$edge.patterns[[1]],
+#                   p = NULL, ip = NULL, lb = 0, ub = 100,
+#                   cub.method='pcubature', verbose = TRUE, do.thorough=T)
+
 outM <- runSinba(phy=scen$tree, data=scen$data,  root.p = rep(1/4,4), Qindv=Qindv, Pindv=Pindv, edge.pattern=scen$edge.patterns[[1]],
-                  p = NULL, ip = NULL, lb = 0, ub = 100,
-                  cub.method='pcubature', verbose = TRUE, do.thorough=T)
+                 p = NULL, ip = NULL, lb = 0, ub = 100,
+                 cub.method='pcubature')
 
 
 #   ____________________________________________________________________________
