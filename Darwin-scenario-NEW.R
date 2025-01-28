@@ -16,7 +16,7 @@ i <- 1
 tree <- sim.UB[[i]]$tree
 chars <- cbind(sim.UB[[i]]$states.binary[[1]], sim.UB[[i]]$states.binary[[2]], sim.UB[[i]]$states.original.recoded)
 plot.phylo(tree, edge.width = 3, show.tip.label = T, no.margin = T, label.offset=10, tip.color='white' )
-addTipChars(chars,  r=.4,  x.space=3, legend=T)
+addTipChars(chars,  r=.5,  x.space=3, legend=T)
 
 # Edge Scenarios
 tree <- sim.UB[[i]]$tree
@@ -64,3 +64,39 @@ out1 <- runSinba(phy=scen$tree, data=scen$data, edge.pattern=EE,
                  p = NULL, ip = NULL, lb = 0, ub = 100,
                  cub.method='pcubature', diagn=F, optim.method='subplex', subplex.rounds=1, subplex.n.cores=1L, gensa.its=100)
 
+
+
+#---------------
+
+
+# Simulate Darwin Scenario
+
+t_darwin <- simDarwin(ntips=100, n.trees.sim=1, Upper.otu.bound=0.6, Lower.otu.bound=0.4)
+t_darwin[[1]]$states
+t_darwin[[1]]$states.recode
+
+# Edge Scenarios
+tree <- t_darwin[[1]]
+chars <- cbind(t_darwin[[1]]$states, t_darwin[[1]]$states)
+scen <- getEdgeScenarios(chars, focal.states=c(1,1), tree, token.maps)
+scen$edge.events
+
+# Vary i to observe various edge patterns
+i=3
+EE <- scen$edge.events[[i]]
+edge.color <-edgePatRecode(EE, from='codes', to='cols')
+dat <- scen$data[,2:4]
+rownames(dat) <- scen$data[,1]
+plot.phylo(scen$tree, edge.color = edge.color, edge.width = 3, show.tip.label = T, no.margin = T, label.offset=10, tip.color='white' )
+addTipChars(x=dat, colors, r=.4,  x.space=3, legend=TRUE)
+edgelabels(EE, cex = 0.4, frame = "ci", bg = edge.color)
+
+
+#------------ Other useful functions
+# pattern memo
+patternList()
+
+# Get all parametrizations of Q
+#mk_QcomPartitions(num.elenents=5, names=NULL)
+
+mk_QcomPartitions8()
